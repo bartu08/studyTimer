@@ -37,15 +37,19 @@ button {
 <p id="timernumbers"></p>
 
 <button type="button" class="btn btn-primary btn-xlarge" onclick="switchModes()">💊</button>
+<audio id="audio" src="https://archive.org/download/Take5_155/03TakeFive.mp3"></audio>
 
 <script>
 
 //Adjust start time
 var timeleft = 10000;
 
+var audio = document.getElementById("audio");
+
 var StudyMode = true;
 
 document.body.style.background = '#DC143C';
+
 
 var x = setInterval(function() {
 
@@ -70,6 +74,7 @@ var x = setInterval(function() {
 
   if (timeleft < 0) {
     //clearInterval(x);
+	audio.play();
     document.getElementById("timernumbers").innerHTML = "❌❌❌";
 	document.body.style.background = '#FF0000';
   }
@@ -88,6 +93,8 @@ function switchModes(){
 		StudyMode = true;
 		
 		if(timeleft < 0){
+			audio.pause();
+			audio.currentTime = 0;
 			timeleft = 1000;
 		}
 		return;
