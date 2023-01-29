@@ -8,27 +8,38 @@ p {
   position: fixed;
   top: 47%;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
 	font-size: 180px;
 	font-family:sans-serif;
 }
-button {
-  position: fixed;
+
+
+.btn-xlarge {
+	position: fixed;
   top: 66%;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
-	font-size: 60px;
 	font-family:sans-serif;
-}
-.btn-xlarge {
     padding: 4px 20px;
     font-size: 60px;
     line-height: normal;
     -webkit-border-radius: 8px;
        -moz-border-radius: 8px;
             border-radius: 8px;
+}
+
+.btn-tiny {
+	position: fixed;
+  top: 98%;
+  left: 99%;
+  transform: translate(-50%, -50%);
+	font-family:sans-serif;
+    padding: 2px 4px;
+    font-size: 20px;
+    line-height: normal;
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
 }
 </style>
 </head>
@@ -37,7 +48,8 @@ button {
 <p id="timernumbers"></p>
 
 <button type="button" class="btn btn-primary btn-xlarge" onclick="switchModes()">💊</button>
-<audio id="audio" src="https://archive.org/download/Take5_155/03TakeFive.mp3"></audio>
+<button type="buttonsecret" class="btn btn-primary btn-tiny" onclick="pauseTimer()">🤚</button>
+<audio id="audio" src="https://archive.org/download/Sound_Effects_2/BeepSoundtone.mp3"></audio>
 
 <script>
 
@@ -47,19 +59,23 @@ var timeleft = 10000;
 var audio = document.getElementById("audio");
 
 var StudyMode = true;
+var timerPaused = false;
+var timerPausedPrevColor;
 
 document.body.style.background = '#DC143C';
 
 
 var x = setInterval(function() {
 
-  
-  if(StudyMode == true){
+  if(timerPaused == false){
+	if(StudyMode == true){
 	//Adjust how much time added per time work (250ms per 1000ms)
 	timeleft += 250;
-  }else{
+	}else{
 	timeleft -= 1000;
+	}
   }
+
     
 
   var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
@@ -98,6 +114,17 @@ function switchModes(){
 			timeleft = 1000;
 		}
 		return;
+	}
+}
+
+function pauseTimer(){
+	if(timerPaused == false){
+		timerPaused = true;
+		timerPausedPrevColor = document.body.style.background;
+		document.body.style.background = '#ADD8E6';
+	}else{
+		timerPaused = false;
+		document.body.style.background = timerPausedPrevColor;
 	}
 }
 </script>
